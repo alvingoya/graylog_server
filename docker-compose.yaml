@@ -1,4 +1,10 @@
 services:
+  mongodb:
+    container_name: "mongodb_graylog"
+    image: mongo:6.0.8-jammy
+    volumes:
+      - "mongodb_data:/data/db"
+    restart: "on-failure"
   opensearch:
     container_name: "opensearch_server"
     image: "opensearchproject/opensearch:2.5.0"
@@ -67,6 +73,7 @@ volumes:
   os_data: {}
   graylog_data: {}
   graylog_journal: {}
+  mongodb_data: {}
 networks:
   platform-network:
     external: true
