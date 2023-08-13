@@ -1,11 +1,12 @@
 services:
-  mongodb:
-    image: "mongo:5.0"
+  mongodb_graylog:
+    container_name: "mongodb_graylog"
+    image: "mongo:6.0.8-jammy"
     volumes:
       - "mongodb_data:/data/db"
     restart: "on-failure"
     networks:
-      - platform-network
+      - graylog-network
 
   opensearch:
     container_name: "opensearch_server"
@@ -31,7 +32,7 @@ services:
       - "os_data:/usr/share/opensearch/data"
     restart: "on-failure"
     networks:
-      - platform-network
+      - graylog-network
 
   graylog:
     container_name: "graylog_server"
@@ -71,7 +72,7 @@ services:
       - sha-pass
     restart: "on-failure"
     networks:
-      - platform-network
+      - graylog-network
 
 volumes:
   mongodb_data: {}
@@ -79,8 +80,7 @@ volumes:
   graylog_data: {}
   graylog_journal: {}
 networks:
-  platform-network:
-    external: true
+  graylog-network: {}
 secrets:
   secret-pass:
     file: secret.txt
