@@ -39,7 +39,7 @@ services:
       GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:9000"
       GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
       GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
-      GRAYLOG_MONGODB_URI: "mongodb://mongodb_bullgame:27017/graylog"
+      GRAYLOG_MONGODB_URI: "mongodb://admin:4AaB!O4c%EdN^$Zn@mongodb_bullgame:27017/graylog"
     ports:
       - "5044:5044/tcp"   # Beats
       - "5140:5140/udp"   # Syslog
