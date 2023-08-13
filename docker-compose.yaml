@@ -1,13 +1,4 @@
 services:
-  mongodb_graylog:
-    container_name: "mongodb_graylog"
-    image: "mongo:6.0.8-jammy"
-    volumes:
-      - "mongodb_data:/data/db"
-    restart: "on-failure"
-    networks:
-      - graylog-network
-
   opensearch:
     container_name: "opensearch_server"
     image: "opensearchproject/opensearch:2.5.0"
@@ -32,15 +23,13 @@ services:
       - "os_data:/usr/share/opensearch/data"
     restart: "on-failure"
     networks:
-      - graylog-network
+      - platform-network
 
   graylog:
     container_name: "graylog_server"
-    image: "graylog/graylog:4.3"
+    image: "graylog/graylog:5.1.4"
     depends_on:
       opensearch:
-        condition: "service_started"
-      mongodb_graylog:
         condition: "service_started"
     entrypoint: "/usr/bin/tini -- wait-for-it opensearch:9200 --  /docker-entrypoint.sh"
     environment:
@@ -50,7 +39,7 @@ services:
       GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:9000"
       GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
       GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
-      GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"
+      GRAYLOG_MONGODB_URI: "mongodb://root:4AaB!O4c%EdN^$Zn@mongodb_bullgame/graylog"
     ports:
       - "5044:5044/tcp"   # Beats
       - "5140:5140/udp"   # Syslog
@@ -72,15 +61,15 @@ services:
       - sha-pass
     restart: "on-failure"
     networks:
-      - graylog-network
+      - platform-network
 
 volumes:
-  mongodb_data: {}
   os_data: {}
   graylog_data: {}
   graylog_journal: {}
 networks:
-  graylog-network: {}
+  platform-network:
+    external: true
 secrets:
   secret-pass:
     file: secret.txt
