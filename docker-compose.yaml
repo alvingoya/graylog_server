@@ -40,7 +40,7 @@ services:
     depends_on:
       opensearch:
         condition: "service_started"
-      mongodb:
+      mongodb_graylog:
         condition: "service_started"
     entrypoint: "/usr/bin/tini -- wait-for-it opensearch:9200 --  /docker-entrypoint.sh"
     environment:
