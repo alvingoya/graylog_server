@@ -1,17 +1,4 @@
 services:
-  nginx_graylog:
-    container_name: nginx_graylog
-    image: nginx:1.24
-    build: nginx
-    ports:
-      - 8081:8081
-    volumes:
-      - ./nginx/conf/conf.d:/etc/nginx/conf.d
-    networks:
-      - platform-network
-    depends_on:
-      graylog:
-        condition: "service_started"
   mongodb:
     image: "mongo:6.0.8-jammy"
     volumes:
