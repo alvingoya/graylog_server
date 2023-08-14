@@ -1,11 +1,4 @@
 services:
-  mongodb:
-    image: "mongo:6.0.8-jammy"
-    volumes:
-      - "mongodb_data:/data/db"
-    restart: "on-failure"
-    networks:
-      - platform-network
   opensearch:
     container_name: "opensearch_server"
     image: "opensearchproject/opensearch:2.5.0"
@@ -38,8 +31,6 @@ services:
     depends_on:
       opensearch:
         condition: "service_started"
-      mongodb:
-        condition: "service_started"
     entrypoint: "/usr/bin/tini -- wait-for-it opensearch:9200 --  /docker-entrypoint.sh"
     environment:
       GRAYLOG_NODE_ID_FILE: "/usr/share/graylog/data/config/node-id"
@@ -51,7 +42,7 @@ services:
       GRAYLOG_HTTP_ENABLE_CORS: "true"
       GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
       GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
-      GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"
+      GRAYLOG_MONGODB_URI: "mongodb://graylog2:admin@mongodb_bullgame/graylog"
     ports:
       - "5044:5044/tcp"   # Beats
       - "5140:5140/udp"   # Syslog
@@ -73,9 +64,9 @@ services:
       - platform-network
 
 volumes:
-  mongodb_data: {}
   os_data: {}
   graylog_data: {}
   graylog_journal: {}
 networks:
   platform-network:
+    external: true
