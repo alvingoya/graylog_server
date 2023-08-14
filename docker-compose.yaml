@@ -34,8 +34,8 @@ services:
     entrypoint: "/usr/bin/tini -- wait-for-it opensearch:9200 --  /docker-entrypoint.sh"
     environment:
       GRAYLOG_NODE_ID_FILE: "/usr/share/graylog/data/config/node-id"
-      GRAYLOG_PASSWORD_SECRET: "/run/secrets/secret-pass"
-      GRAYLOG_ROOT_PASSWORD_SHA2: "/run/secrets/sha-pass"
+      GRAYLOG_PASSWORD_SECRET: "4ttNfkCgT3R35g45"
+      GRAYLOG_ROOT_PASSWORD_SHA2: "25f43b1486ad95a1398e3eeb3d83bc4010015fcc9bedb35b432e00298d5021f7" #admin1
       GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:8083"
       GRAYLOG_HTTP_ENABLE_CORS: "true"
       GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:8083/"
@@ -71,8 +71,3 @@ volumes:
 networks:
   platform-network:
     external: true
-secrets:
-  secret-pass:
-    file: secret.txt
-  sha-pass:
-    file: sha.txt
