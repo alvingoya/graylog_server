@@ -36,9 +36,9 @@ services:
       GRAYLOG_NODE_ID_FILE: "/usr/share/graylog/data/config/node-id"
       GRAYLOG_PASSWORD_SECRET: /run/secrets/secret-pass
       GRAYLOG_ROOT_PASSWORD_SHA2: /run/secrets/sha-pass
-      GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:9000"
+      GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:8083"
       GRAYLOG_HTTP_ENABLE_CORS: "true"
-      GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:9000/"
+      GRAYLOG_HTTP_EXTERNAL_URI: "http://localhost:8083/"
       GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
       GRAYLOG_MONGODB_URI: "mongodb://graylog2:admin@mongodb_bullgame/graylog"
     ports:
@@ -47,7 +47,7 @@ services:
       - "5140:5140/tcp"   # Syslog
       - "5555:5555/tcp"   # RAW TCP
       - "5555:5555/udp"   # RAW TCP
-      - "9000:9000/tcp"   # Server API
+      - "8083:8083/tcp"   # Server API
       - "12201:12201/tcp" # GELF TCP
       - "12201:12201/udp" # GELF UDP
       #- "10000:10000/tcp" # Custom TCP port
