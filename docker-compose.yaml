@@ -28,6 +28,10 @@ services:
   graylog:
     container_name: "graylog_server"
     image: "graylog/graylog:5.1.4"
+    cpus: 1.0
+    mem_limit: 4g
+    memswap_limit: 4g
+    oom_kill_disable: true
     depends_on:
       opensearch:
         condition: "service_started"
